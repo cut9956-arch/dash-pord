@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>لوحة مؤشرات التقويم والاعتماد المدرسي 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#eef3f3;--card:#fff;--ink:#12302f;--mute:#5d7776;--line:#d5e0df;--teal:#0f6b68;--ok:#1b8a5a;--mid:#d98a14;--bad:#c8402f;--none:#9db0af}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1b1b;--card:#152726;--ink:#e6f1f0;--mute:#93aeac;--line:#284240;--teal:#3fb8b1;--ok:#3fc088;--mid:#f0a93a;--bad:#f0705f;--none:#5f7977}}
+:root[data-theme="dark"]{--bg:#0e1b1b;--card:#152726;--ink:#e6f1f0;--mute:#93aeac;--line:#284240;--teal:#3fb8b1;--ok:#3fc088;--mid:#f0a93a;--bad:#f0705f;--none:#5f7977}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Tajawal,"Segoe UI",Tahoma,sans-serif;line-height:1.6}
+main{max-width:1100px;margin:0 auto;padding:20px 16px 48px}
+h1{font-size:1.6rem;font-weight:800;margin:0}
+.sub{color:var(--mute);margin:4px 0 20px;font-size:.95rem}
+.top{display:grid;grid-template-columns:230px 1fr;gap:14px;margin-bottom:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.ring{position:relative;width:150px;height:150px;margin:0 auto 6px}
+.ring svg{transform:rotate(-90deg)}
+.ring b{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:2rem;font-weight:800}
+.ring small{font-size:.75rem;font-weight:500;color:var(--mute)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.stat{border-inline-start:4px solid var(--c);padding:6px 12px}
+.stat b{display:block;font-size:1.8rem;font-weight:800;line-height:1.2}
+.stat span{color:var(--mute);font-size:.88rem}
+.doms{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.dom h3{margin:0 0 2px;font-size:1rem}
+.dom .n{color:var(--mute);font-size:.82rem}
+.dom .p{font-size:1.5rem;font-weight:800;margin:6px 0}
+.bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:99px;background:var(--c,var(--none));transition:width .25s}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;align-items:center}
+select,button,input{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:7px 10px}
+button{cursor:pointer}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--teal);outline-offset:1px}
+.sp{flex:1}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+table{width:100%;border-collapse:collapse;min-width:760px}
+th,td{padding:9px 12px;text-align:right;border-bottom:1px solid var(--line);vertical-align:middle}
+th{font-size:.85rem;color:var(--mute);font-weight:500;background:var(--bg)}
+tr:last-child td{border-bottom:0}
+.code{direction:ltr;unicode-bidi:embed;color:var(--mute);font-size:.85rem;white-space:nowrap}
+.std{color:var(--mute);font-size:.82rem}
+td.sc{width:90px}td.sc input{width:70px;text-align:center}
+td.pr{width:170px}
+.tag{display:inline-block;padding:2px 10px;border-radius:99px;font-size:.82rem;font-weight:500;color:#fff;background:var(--c);white-space:nowrap}
+.note{color:var(--mute);font-size:.82rem;margin-top:10px}
+@media(max-width:760px){.top{grid-template-columns:1fr}.stats,.doms{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<main>
+<h1>لوحة مؤشرات التقويم والاعتماد المدرسي 2026</h1>
+<p class="sub">٥٢ مؤشرًا في ٤ مجالات و١١ معيارًا. أدخل درجة الإنجاز (٠–١٠٠) لكل مؤشر وستتحدث اللوحة مباشرة.</p>
+<section class="top">
+<div class="card"><div class="ring"><svg width="150" height="150" viewBox="0 0 150 150"><circle cx="75" cy="75" r="64" fill="none" stroke="var(--line)" stroke-width="14"/><circle id="arc" cx="75" cy="75" r="64" fill="none" stroke="var(--teal)" stroke-width="14" stroke-linecap="round" stroke-dasharray="402" stroke-dashoffset="402"/></svg><b><span id="ov">—</span><small>الإنجاز الكلي</small></b></div><div class="sub" style="text-align:center;margin:0" id="cnt"></div></div>
+<div class="card stats" id="stats"></div>
+</section>
+<section class="doms" id="doms"></section>
+<div class="tools">
+<select id="fd" aria-label="المجال"></select>
+<select id="fs" aria-label="الحالة"><option value="">كل الحالات</option><option value="ok">محقق</option><option value="mid">جزئي</option><option value="bad">غير محقق</option><option value="none">لم يقيَّم</option></select>
+<select id="so" aria-label="الترتيب"><option value="def">الترتيب الأصلي</option><option value="asc">الدرجة: الأقل أولًا</option><option value="desc">الدرجة: الأعلى أولًا</option></select>
+<span class="sp"></span><button id="rs">مسح كل الدرجات</button>
+</div>
+<div class="tw"><table><thead><tr><th>الرمز</th><th>المؤشر</th><th>الدرجة</th><th>التقدم</th><th>الحالة</th></tr></thead><tbody id="tb"></tbody></table></div>
+<p class="note">التصنيف: محقق ٨٠٪ فأكثر، جزئي من ٥٠٪ إلى ٧٩٪، غير محقق أقل من ٥٠٪. مؤشرات المرحلة الثانوية (نتائج التحصيلية والقدرات العامة) لم تُضف لأنها لا تُحتسب ضمن العدد الرسمي للمؤشرات. الدرجات تُحفظ في متصفحك فقط.</p>
+</main>
+<script>
+const D=[
+["الإدارة المدرسية",[
+["التخطيط",["خطة تشغيلية شاملة وفق أهداف تطويرية","متابعة تنفيذ الخطة وتطويرها"]],
+["قيادة العملية التعليمية",["تعزيز القيم الإسلامية والهوية الوطنية","قيم مهنة التعليم وأخلاقياتها","إجراءات دعم الانضباط المدرسي","برامج داعمة للسلوك الإيجابي","برامج إثرائية لتطوير المواهب"]],
+["المجتمع المدرسي",["العلاقات الإيجابية والتعاون","مشاركة الأسرة في تعلم أبنائهم","الشراكة المجتمعية"]],
+["التطوير المؤسسي",["كادر تعليمي مكتمل ومؤهل (أهلية وعالمية)","كادر إداري مكتمل ومؤهل (أهلية وعالمية)","الملاءة والاستدامة المالية (أهلية وعالمية)","دعم الرخصة المهنية","التطوير المهني وفق الاحتياجات","التقويم الذاتي المستمر","تنفيذ خطة التحسين ومتابعتها"]],
+["حقوق المتعلم وحمايته",["المحافظة على حقوق المتعلمين وحمايتهم","مناخ آمن نفسيًا واجتماعيًا"]]]],
+["التعليم والتعلم",[
+["بناء خبرات التعلم",["فرص تعلم متكافئة","دعم تنفيذ المناهج","تنوع استراتيجيات التعليم والتعلم","تفعيل التقنية الرقمية","أنشطة تعلم تطبيقية","المهارات القرائية والعددية","مهارات التفكير والبحث والابتكار","المهارات العاطفية والاجتماعية","دافعية التعلم والاستمتاع به"]],
+["تقويم التعلم",["أساليب وأدوات تقويم متنوعة","تقويم نواتج التعلم المستهدفة","تحليل نتائج التقويم وتوظيفها","التغذية الراجعة للمتعلمين والأسر"]]]],
+["نواتج التعلم",[
+["التحصيل التعليمي",["نتائج مرتفعة في القراءة","نتائج مرتفعة في الرياضيات","نتائج مرتفعة في العلوم","تقدم في القراءة عن الأداء السابق","تقدم في الرياضيات عن الأداء السابق","تقدم في العلوم عن الأداء السابق"]],
+["التطور الشخصي والصحي والاجتماعي",["الاعتزاز بالقيم والهوية الوطنية","اتجاهات إيجابية نحو الذات والآخرين","الالتزام بالممارسات الصحية","المشاركة في الأنشطة المجتمعية والتطوعية","الالتزام بقواعد السلوك والانضباط","الاستقلالية والتعلم الذاتي","الاعتزاز بالثقافة واحترام التنوع"]]]],
+["البيئة المدرسية",[
+["المبنى المدرسي",["مبنى تعليمي يستوفي المواصفات","تنظيم المبنى لعدد المتعلمين ومرحلتهم","فصول ومعامل ملائمة","مرافق وتجهيزات وخدمات مساندة"]],
+["الأمن والسلامة",["توافر متطلبات الأمن والسلامة","متابعة صيانة المبنى والتجهيزات","متابعة نظافة المبنى والمرافق"]]]]];
+const C={ok:"var(--ok)",mid:"var(--mid)",bad:"var(--bad)",none:"var(--none)"},L={ok:"محقق",mid:"جزئي",bad:"غير محقق",none:"لم يقيَّم"};
+const R=[];D.forEach((d,di)=>d[1].forEach((s,si)=>s[1].forEach((t,i)=>R.push({id:R.length,di,s:s[0],t,code:`${i+1}-1-${si+1}-${di+1}`,v:null}))));
+try{const m=JSON.parse(localStorage.getItem("acc26")||"[]");m.forEach((v,i)=>{if(R[i]&&typeof v==="number")R[i].v=v})}catch(e){}
+const st=v=>v==null?"none":v>=80?"ok":v>=50?"mid":"bad";
+const avg=a=>{const e=a.filter(r=>r.v!=null);return e.length?Math.round(e.reduce((x,r)=>x+r.v,0)/e.length):null};
+const $=i=>document.getElementById(i);
+const fd=$("fd");fd.innerHTML='<option value="">كل المجالات</option>'+D.map((d,i)=>`<option value="${i}">${d[0]}</option>`).join("");
+function save(){try{localStorage.setItem("acc26",JSON.stringify(R.map(r=>r.v)))}catch(e){}}
+function summary(){
+const o=avg(R);$("ov").textContent=o==null?"—":o+"٪";
+$("arc").style.strokeDashoffset=402-402*(o||0)/100;
+const c={ok:0,mid:0,bad:0,none:0};R.forEach(r=>c[st(r.v)]++);
+$("stats").innerHTML=Object.keys(c).map(k=>`<div class="stat" style="--c:${C[k]}"><b>${c[k]}</b><span>${L[k]}</span></div>`).join("");
+$("cnt").textContent=`تم تقييم ${R.length-c.none} من ${R.length} مؤشرًا`;
+$("doms").innerHTML=D.map((d,i)=>{const a=R.filter(r=>r.di==i),p=avg(a);return `<div class="card dom" style="--c:${C[st(p)]}"><h3>${d[0]}</h3><div class="n">${a.length} مؤشرًا</div><div class="p">${p==null?"—":p+"٪"}</div><div class="bar"><i style="width:${p||0}%"></i></div></div>`}).join("");
+}
+function rowHTML(r){const k=st(r.v);return `<tr data-i="${r.id}"><td class="code">${r.code}</td><td>${r.t}<div class="std">${D[r.di][0]} · ${r.s}</div></td><td class="sc"><input type="number" min="0" max="100" inputmode="numeric" value="${r.v??""}" aria-label="درجة ${r.t}"></td><td class="pr"><div class="bar" style="--c:${C[k]}"><i style="width:${r.v||0}%"></i></div></td><td><span class="tag" style="--c:${C[k]}">${L[k]}</span></td></tr>`}
+function table(){
+let a=R.filter(r=>(fd.value===""||r.di==fd.value)&&($("fs").value===""||st(r.v)==$("fs").value));
+const s=$("so").value;if(s!="def")a=[...a].sort((x,y)=>s=="asc"?(x.v??-1)-(y.v??-1):(y.v??-1)-(x.v??-1));
+$("tb").innerHTML=a.map(rowHTML).join("");
+}
+$("tb").addEventListener("input",e=>{
+const tr=e.target.closest("tr");if(!tr)return;const r=R[tr.dataset.i];
+let v=e.target.value===""?null:Math.max(0,Math.min(100,Math.round(+e.target.value)));r.v=v;
+const k=st(v),b=tr.querySelector(".bar");b.style.setProperty("--c",C[k]);b.firstChild.style.width=(v||0)+"%";
+const g=tr.querySelector(".tag");g.style.setProperty("--c",C[k]);g.textContent=L[k];
+save();summary();
+});
+["fd","fs","so"].forEach(i=>$(i).addEventListener("change",table));
+$("rs").onclick=()=>{if(confirm("مسح كل الدرجات؟")){R.forEach(r=>r.v=null);save();summary();table()}};
+summary();table();
+</script>
+</body>
+</html>
